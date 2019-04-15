@@ -18,6 +18,8 @@ function Letter(char) {
     };
 };
 
-//var d = new Letter('r');
-//d.check('r')
-//d.printChar('r');
+module.exports = Letter;
+
+var d = new Letter('d');
+d.check('r')
+d.printChar();
