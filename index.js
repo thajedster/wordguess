@@ -3,9 +3,8 @@ var word = require('./Word');
 var letter = require('./Letter');
 
 var wordArray = ['door', 'cell phone', 'tent', 'airplane', 'laundry'];
-var newWord = new word(wordArray[1]);
+var newWord = new word(wordArray[Math.floor(Math.random() * wordArray.length)]);
 var savedWord = [];
-var wordArray = [];
 var numGuess = 10;
 
 //newWord.returnString();
@@ -17,7 +16,6 @@ function ask() {
         name: "guess",
         message: "guess a letter"
     }]).then(function (char) {
-        //all isGuessed = true
         //each item in newWord.word is contained in savedWord
         if (newWord.word.every(function (val) { return savedWord.indexOf(val) >= 0; })) {
             console.log("you win!");
