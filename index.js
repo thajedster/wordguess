@@ -5,9 +5,11 @@ var letter = require('./Letter');
 var wordArray = ['door', 'cell phone', 'tent', 'airplane', 'laundry'];
 var newWord = new word(wordArray[1]);
 var savedWord = [];
+var wordArray = [];
 var numGuess = 10;
 
-newWord.returnString();
+//newWord.returnString();
+console.log("_ ".repeat(newWord.word.length));
 
 function ask() {
     inquirer.prompt([{
@@ -15,10 +17,9 @@ function ask() {
         name: "guess",
         message: "guess a letter"
     }]).then(function (char) {
-        newWord.word.forEach(function (d) {
-            d = new letter();
-        })
-        if (newWord.word[0].isGuessed === true) {
+        //all isGuessed = true
+        //each item in newWord.word is contained in savedWord
+        if (newWord.word.every(function (val) { return savedWord.indexOf(val) >= 0; })) {
             console.log("you win!");
             return;
         } else if (savedWord.includes(char.guess)) {
@@ -33,11 +34,14 @@ function ask() {
             }
         } else if (newWord.word.includes(char.guess) && savedWord.includes(char.guess) === false) {
             newWord.guessStatus(char.guess)
+
             savedWord.push(char.guess);
 
-            newWord.word[newWord.word.indexOf(char.guess)].isGuessed = true;
-
             newWord.returnString();
+            if (newWord.word.every(function (val) { return savedWord.indexOf(val) >= 0; })) {
+                console.log("you win!");
+                return;
+            }
 
             ask();
         } else {
