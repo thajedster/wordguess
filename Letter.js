@@ -1,12 +1,15 @@
-function Letter(char) {
+var savedletter = String;
+var Letter = function (char) {
     this.char = char;
-    a = this.char;
     this.isGuessed = false;
     this.printChar = function () {
+        var space = '_';
         if (this.isGuessed) {
-            console.log(char);
+            savedletter = char;
+            console.log(savedletter);
         } else {
-            console.log('_');
+            savedletter = space;
+            console.log(savedletter);
         }
     };
     this.check = function (c) {
@@ -20,6 +23,6 @@ function Letter(char) {
 
 module.exports = Letter;
 
-var d = new Letter('d');
-d.check('r')
-d.printChar();
+//var d = new Letter('d');
+//d.check('d')
+//d.printChar();
