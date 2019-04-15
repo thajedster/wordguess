@@ -1,7 +1,7 @@
 var savedletter = String;
 var Letter = function (char) {
     this.char = char;
-    this.isGuessed = false;
+    this.isGuessed = Boolean;
     this.printChar = function () {
         var space = '_';
         if (this.isGuessed) {

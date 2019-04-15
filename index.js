@@ -3,32 +3,53 @@ var word = require('./Word');
 var letter = require('./Letter');
 
 var wordArray = ['door', 'cell phone', 'tent', 'airplane', 'laundry'];
-var newWord = new word(wordArray[0]);
+var newWord = new word(wordArray[1]);
 var savedWord = [];
-var newLetter = new letter();
-//console.log(newWord.word)
+var numGuess = 10;
+
 newWord.returnString();
-console.log(newWord);
+
 function ask() {
     inquirer.prompt([{
         type: "input",
         name: "guess",
         message: "guess a letter"
     }]).then(function (char) {
-        console.log(char);
-        if (newWord.word.includes(char.guess) && savedWord.includes(char.guess) === false) {
+        newWord.word.forEach(function (d) {
+            d = new letter();
+        })
+        if (newWord.word[0].isGuessed === true) {
+            console.log("you win!");
+            return;
+        } else if (savedWord.includes(char.guess)) {
+            console.log("You guessed that already!!!")
+            numGuess--;
+            console.log("you have " + numGuess + " guesses left!")
+            if (numGuess === 0) {
+                console.log("you lose!!!")
+                return;
+            } else {
+                ask();
+            }
+        } else if (newWord.word.includes(char.guess) && savedWord.includes(char.guess) === false) {
             newWord.guessStatus(char.guess)
             savedWord.push(char.guess);
 
-            //newLetter = newWord.word[newWord.word.indexOf(char.guess)]
-            //newLetter.isGuessed = true;
             newWord.word[newWord.word.indexOf(char.guess)].isGuessed = true;
 
             newWord.returnString();
 
             ask();
         } else {
-            console.log("wrong!!!")
+            console.log("Wrong!!!")
+            numGuess--;
+            console.log("you have " + numGuess + " guesses left!")
+            if (numGuess === 0) {
+                console.log("you lose!!!")
+                return;
+            } else {
+                ask();
+            }
         }
     })
 }

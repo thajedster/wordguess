@@ -17,7 +17,12 @@ function Word(word) {
     };
     this.guessStatus = function (char) {
         array1.forEach(function (ele) {
-            ele.check(char);
+            if (ele.isGuessed === true) {
+                ele.isGuessed = true;
+            } else {
+                ele.check(char);
+            }
+
         });
     };
 }
@@ -25,5 +30,5 @@ function Word(word) {
 module.exports = Word;
 
 //var something = new Word("guarantee")
-//something.guessStatus('g')
+//something.guessStatus('e')
 //something.returnString();
